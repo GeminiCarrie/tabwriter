@@ -11,10 +11,11 @@ keywords = ["tabs", "elastic", "aligned", "whitespace", "table"]
 license = "Unlicense/MIT"
 
 [dependencies]
-unicode-width = "0.1"
-regex = { version = "1", optional = true }
-lazy_static =  { version = "1", optional = true}
-
+unicode-width ={features=["no_std"],version ="0.1"} 
+regex = { optional = true, git = "https://github.com/mesalock-linux/regex-sgx" }
+lazy_static  = { version = "1.4.0", features = ["spin_no_std"], optional = true }
+sgx_tstd = { rev = "v1.0.9", git="https://github.com/baidu/rust-sgx-sdk.git", optional = true }
 [features]
 default = []
+mesalock_sgx=["sgx_tstd"]
 ansi_formatting = ["regex", "lazy_static"]

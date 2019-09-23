@@ -71,6 +71,13 @@
 //! ```
 
 #![deny(missing_docs)]
+#![cfg_attr(all(feature = "mesalock_sgx",not(target_env = "sgx")), no_std)]
+#![cfg_attr(all(target_env = "sgx", target_vendor = "mesalock"), feature(rustc_private))]
+
+#[cfg(all(feature = "mesalock_sgx", not(target_env = "sgx")))]
+#[macro_use()]
+extern crate sgx_tstd as std;
+
 
 #[cfg(feature = "ansi_formatting")]
 #[macro_use]
@@ -78,7 +85,7 @@ extern crate lazy_static;
 #[cfg(feature = "ansi_formatting")]
 extern crate regex;
 extern crate unicode_width;
-
+use std::prelude::v1::*;
 use std::cmp;
 use std::error;
 use std::fmt;
@@ -86,7 +93,7 @@ use std::io::{self, Write};
 use std::iter;
 use std::mem;
 use std::str;
-
+use std::vec;
 #[cfg(feature = "ansi_formatting")]
 use regex::Regex;
 #[cfg(feature = "ansi_formatting")]
